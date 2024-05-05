@@ -24,7 +24,8 @@ jobs:
         
       - name: Start MySQL
         run: |
-          sudo mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USER -p$DB_PASSWORD
+          sudo systemctl start mysql
+          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USER -p$DB_PASSWORD
       
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
