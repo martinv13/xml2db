@@ -10,23 +10,27 @@ on:
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
-    container: python:3.11-bookworm
-    env:
-      DB_DATABASE: test_db
-      DB_USER: root
-      DB_PASSWORD: root
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: secretroot
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - name: Install sudo package
-        run: apt update && apt install sudo
+      - name: Verify MySQL connection
+        run: |
+          mysql --version
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -psecretroot -e "SHOW DATABASES"
         
       - name: Check out repository code
         uses: actions/checkout@v4
         
-      - name: Start MySQL
-        run: |
-          sudo systemctl start mysql
-          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USER -p$DB_PASSWORD
-      
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
@@ -41,4 +45,4 @@ jobs:
         run: |
           pytest tests
         env:
-          DB_STRING: mysql+pymysql://root:root@localhost/test_db?charset=utf8mb4
+          DB_STRING: mysql+pymysql://user:secret@127.0.0.1/test_db?charset=utf8mb4
