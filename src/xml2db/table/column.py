@@ -12,7 +12,7 @@ from sqlalchemy import (
     String,
     LargeBinary,
 )
-from sqlalchemy.dialects import mssql
+from sqlalchemy.dialects import mssql, mysql
 
 if TYPE_CHECKING:
     from xml2db.model import DataModel
@@ -108,6 +108,20 @@ def types_mapping_mssql(temp: bool, col: "DataModelColumn") -> Any:
         return mssql.VARCHAR(1000)
 
 
+def types_mapping_mysql(temp: bool, col: "DataModelColumn") -> Any:
+    """Defines the MySQL/sqlalchemy type to use for given column properties in target tables
+
+    :param temp: are we targeting the temporary tables schema or the final tables?
+    :param col: an object representing a column of a table for which we are determining the SQL type to define
+    :return: a sqlalchemy class representing the data type to be used
+    """
+    if col.occurs[1] != 1:
+        return String(8000)
+    if col.data_type == "binary":
+        return mysql.BINARY(col.max_length)
+    return types_mapping_default(temp, col)
+
+
 class DataModelColumn:
     """A class representing a column of a table
 
@@ -160,7 +174,11 @@ class DataModelColumn:
         self.types_mapping = (
             types_mapping_mssql
             if data_model.engine and data_model.engine.dialect.name == "mssql"
-            else types_mapping_default
+            else (
+                types_mapping_mysql
+                if data_model.engine and data_model.engine.dialect.name == "mysql"
+                else types_mapping_default
+            )
         )
 
     @property
