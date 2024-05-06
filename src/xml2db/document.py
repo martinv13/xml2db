@@ -517,7 +517,7 @@ class Document:
                     and isinstance(x, datetime.datetime)
                     and (x.tzinfo is None or x.tzinfo.utcoffset(x) is None)
                 ):
-                    x.replace(tzinfo=force_tz)
+                    x = x.replace(tzinfo=force_tz)
                 return x
 
             col_names = sqla_table.columns.keys()
