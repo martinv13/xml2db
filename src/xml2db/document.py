@@ -5,7 +5,7 @@ import multiprocessing
 from hashlib import sha1
 from io import BytesIO
 from typing import Union, TYPE_CHECKING, Dict
-from dateutil import tz
+from zoneinfo import ZoneInfo
 from sqlalchemy import Column, Table, text, select
 from sqlalchemy.engine import Connection
 from sqlalchemy.sql.expression import TextClause
@@ -481,7 +481,7 @@ class Document:
         """
 
         if force_tz:
-            force_tz = tz.gettz(force_tz)
+            force_tz = ZoneInfo(force_tz)
 
         def _fetch_data(
             sqla_table: Table,
