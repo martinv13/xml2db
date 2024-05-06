@@ -116,7 +116,7 @@ def types_mapping_mysql(temp: bool, col: "DataModelColumn") -> Any:
     :return: a sqlalchemy class representing the data type to be used
     """
     if col.occurs[1] != 1:
-        return String(8000)
+        return String(4000)
     if col.data_type == "binary":
         return mysql.BINARY(col.max_length)
     return types_mapping_default(temp, col)
