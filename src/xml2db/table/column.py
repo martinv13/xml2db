@@ -117,6 +117,9 @@ def types_mapping_mysql(temp: bool, col: "DataModelColumn") -> Any:
     """
     if col.occurs[1] != 1:
         return String(4000)
+    if col.data_type in ["string", "NMTOKEN", "duration", "token"]:
+        if col.max_length is None:
+            return String(255)
     if col.data_type == "binary":
         return mysql.BINARY(col.max_length)
     return types_mapping_default(temp, col)
