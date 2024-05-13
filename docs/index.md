@@ -7,6 +7,8 @@ Starting from an XSD schema which represents a given XML structure, `xml2db` bui
 Then, it allows parsing and loading XML files into the database, and getting them back from the database 
 into XML format if needed.
 
+It can be useful in the context of an [Extract, Load, Transform](https://docs.getdbt.com/terms/elt) data pipeline pattern as it allows loading XML files into a relational data model which is very close from the source data, yet easy to work with.
+
 ## How to load XML files into a database
 
 Loading XML files to a database with `xml2db` can be as simple as:
