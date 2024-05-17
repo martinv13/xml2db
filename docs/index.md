@@ -16,7 +16,7 @@ Loading XML files to a database with `xml2db` can be as simple as:
 ```python
 from xml2db import DataModel
 
-# create a DataModel object from an XSD file
+# Create a DataModel object from an XSD file
 data_model = DataModel(
     xsd_file="path/to/file.xsd", 
     connection_string="postgresql+psycopg2://testuser:testuser@localhost:5432/testdb",
