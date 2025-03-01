@@ -16,6 +16,7 @@ from graphlib import TopologicalSorter
 
 from .document import Document
 from .exceptions import DataModelConfigError, check_type
+from .db_adapters import adapters
 from .table import (
     DataModelTableReused,
     DataModelTableDuplicated,
@@ -116,6 +117,12 @@ class DataModel:
                     **engine_options,
                 )
             self.db_type = self.engine.dialect.name
+
+        self.db_adapter = (
+            adapters[self.db_type]
+            if self.db_type in adapters
+            else adapters["postgresql"]
+        )
 
         self.db_schema = db_schema
         self.temp_prefix = str(uuid4())[:8] if temp_prefix is None else temp_prefix
