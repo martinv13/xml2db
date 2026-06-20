@@ -34,5 +34,7 @@ tests = ["pytest>=7.0"]
 [tool.pytest.ini_options]
 markers = [
     "dbtest: marks tests as integration tests requiring a database backend (deselect with '-m \"not dbtest\"')",
+    "benchmark: performance benchmarks, excluded from normal CI (run with -m benchmark)",
 ]
+addopts = "-m 'not benchmark'"
 junit_family = "xunit2"
