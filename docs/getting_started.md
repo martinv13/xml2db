@@ -55,11 +55,7 @@ xml2db render schema.xsd --format ddl --db-type postgresql
 
     `DataModel` reads a single XSD file, but that file can pull in others with `xs:import` (for
     another namespace) or `xs:include` (for the same one), so documents mixing several schemas work
-    as long as one schema describes the whole document. Two things to watch: elements declared as
-    `xs:any` are skipped, so a payload described by another schema has to be declared explicitly in
-    a wrapper schema of your own; and complex types are identified by their local name, ignoring
-    the namespace, so two types sharing a local name get a numeric suffix and a warning. Give your
-    own types distinct names to keep the model readable.
+    as long as one schema describes the whole document.
 
 See [Configuring your data model](configuring.md) for a full description of the available config options.
 

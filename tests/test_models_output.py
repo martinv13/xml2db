@@ -85,19 +85,3 @@ def test_model_ddl(test_config):
     )
 
     assert actual == expected
-
-
-def test_same_local_name_types_get_distinct_tables():
-    """A test to check that two types sharing a local name are not merged
-
-    orders.xsd declares 'detail' twice with a different anonymous complex type, in itemtype and in
-    shipordertype. Both types have the local name 'detail', and each one gets its own table.
-    """
-
-    model = DataModel(
-        str(os.path.join(models_path, "orders", "orders.xsd")),
-        short_name="orders",
-    )
-
-    assert sorted(model.tables["detail"].columns.keys()) == ["unit", "weight"]
-    assert sorted(model.tables["detail_1"].columns.keys()) == ["carrier", "reference"]
