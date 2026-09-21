@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<m:basket xmlns:m="http://www.cre.fr/xml2db/main" xmlns:o="http://www.cre.fr/xml2db/other">
+    <m:reference>BSK-1</m:reference>
+    <m:item>
+        <m:label>Apples</m:label>
+        <o:item>
+            <o:code>APL</o:code>
+            <o:quantity>3</o:quantity>
+        </o:item>
+        <o:item>
+            <o:code>APL-2</o:code>
+            <o:quantity>5</o:quantity>
+        </o:item>
+    </m:item>
+    <m:item>
+        <m:label>Oranges</m:label>
+        <o:item>
+            <o:code>ORG</o:code>
+            <o:quantity>7</o:quantity>
+        </o:item>
+    </m:item>
+</m:basket>
