@@ -129,7 +129,7 @@ data should be processed correctly.
 Elements declared as `xs:any` are discarded with a warning, because a wildcard does not tell which elements may
 appear, and therefore which tables to create. When the content of such an element follows a known schema, declaring it
 explicitly in a wrapper schema makes it importable, see
-[Combining several XSD schemas](multiple_schemas.md).
+[Exploring the data model](getting_started.md#exploring-the-data-model).
 
 #### Mixed content elements
 

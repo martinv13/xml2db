@@ -10,7 +10,6 @@ nav:
   - Introduction: "index.md"
   - Getting started: "getting_started.md"
   - Configuring: "configuring.md"
-  - Combining several XSD schemas: "multiple_schemas.md"
   - How it works: "how_it_works.md"
   - CLI usage: "cli.md"
   - API:
